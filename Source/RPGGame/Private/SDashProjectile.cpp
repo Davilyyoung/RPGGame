@@ -1,0 +1,70 @@
+
+#include "SDashProjectile.h"
+#include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
+
+
+ASDashProjectile::ASDashProjectile()
+{
+	TeleportDelay = 0.2f;
+	DetonateDelay = 0.2f;
+
+	MoveComp->InitialSpeed = 6000.0f;
+
+	
+}
+
+void ASDashProjectile::BeginPlay()
+{
+	Super::BeginPlay();
+
+	//设置一个定时器 DetonateDelay = 0.2f秒 触发&ASDashProjectile::Explode
+	GetWorldTimerManager().SetTimer(TimerHandle_DelayedDetonate,this,&ASDashProjectile::Explode,DetonateDelay);
+	
+}
+
+void ASDashProjectile::Explode_Implementation()
+{
+	
+	// Clear timer if the Explode was already called through another source like OnActorHit
+	GetWorldTimerManager().ClearTimer(TimerHandle_DelayedDetonate);
+
+	UGameplayStatics::SpawnEmitterAtLocation(this, ImpactVFX, GetActorLocation(), GetActorRotation());
+
+	UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation());
+
+	EffectComp->DeactivateSystem();
+
+	MoveComp->StopMovementImmediately();
+	SetActorEnableCollision(false);
+
+	FTimerHandle TimerHandle_DelayedTeleport;
+	GetWorldTimerManager().SetTimer(TimerHandle_DelayedTeleport, this, &ASDashProjectile::TeleportInstigator, TeleportDelay);
+
+	// Skip base implementation as it will destroy actor (we need to stay alive a bit longer to finish the 2nd timer)
+	//Super::Explode_Implementation();
+}
+
+void ASDashProjectile::TeleportInstigator()
+{
+	AActor* ActorToTeleport = GetInstigator();
+	if (ensure(ActorToTeleport))
+	{
+		// Keep instigator rotation or it may end up jarring
+		ActorToTeleport->TeleportTo(GetActorLocation(), ActorToTeleport->GetActorRotation(), false, false);
+
+		// Play shake on the player we teleported
+		APawn* InstigatorPawn = Cast<APawn>(ActorToTeleport);
+		APlayerController* PC = Cast<APlayerController>(InstigatorPawn->GetController());
+		if (PC && PC->IsLocalController())
+		{
+			PC->ClientStartCameraShake(ImpactShake);
+		}
+
+	}
+	// Now we're ready to destroy self
+	Destroy();
+}
+
+
+
