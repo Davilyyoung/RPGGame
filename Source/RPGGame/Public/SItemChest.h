@@ -19,8 +19,8 @@ public:
 	void Interact_Implementation(APawn* InstigatorPawn);//实现这个接口方法
 
 	void OnActorLoaded_Implementation();
-protected:
 
+protected:
 	
 	virtual void GetLifetimeReplicatedProps(TArray< class FLifetimeProperty > & OutLifetimeProps) const override;//每当一个变量改变了它的值，网络就应该通知所有的客户端这个变化 
 
@@ -32,6 +32,7 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
 	UStaticMeshComponent* BaseMesh;
+	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
 	UStaticMeshComponent* LidMesh;
 

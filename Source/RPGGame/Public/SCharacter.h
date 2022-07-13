@@ -57,11 +57,11 @@ protected:
 	
 	void PrimaryInteract(); // 交互
 	
-	void PrimaryAttack();	// 攻击技能
+	void PrimaryAttack();	// Attack技能
 	
-	void Dash();		// 传送技能
+	void Dash();		// Dash技能
 
-	void BlackHole();	// 黑洞技能
+	void Ultimate();	// Ultimate技能
 	
 	virtual FVector GetPawnViewLocation() const override;// 返回角色的眼球位置  修复和物体交互的bug
 	

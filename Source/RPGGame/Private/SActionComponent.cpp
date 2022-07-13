@@ -8,8 +8,6 @@
 
 DECLARE_CYCLE_STAT(TEXT("StartActionByName"), STAT_StartActionByName, STATGROUP_HALL);
 
-
-
 USActionComponent::USActionComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;

@@ -89,7 +89,7 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	
 	PlayerInputComponent->BindAction("PrimaryAttack",IE_Pressed,this,&ASCharacter::PrimaryAttack);
 	PlayerInputComponent->BindAction("Dash",IE_Pressed,this,&ASCharacter::Dash);
-	PlayerInputComponent->BindAction("BlackHole",IE_Pressed,this,&ASCharacter::BlackHole);
+	PlayerInputComponent->BindAction("Ultimate",IE_Pressed,this,&ASCharacter::Ultimate);
 	
 	PlayerInputComponent->BindAction("PrimaryIneract",IE_Pressed,this,&ASCharacter::PrimaryInteract);
 	
@@ -143,9 +143,9 @@ void ASCharacter::Dash()//闪烁技能
 	ActionComp->StartActionByName(this,"Dash");
 }
 
-void ASCharacter::BlackHole()//黑洞技能
+void ASCharacter::Ultimate()//黑洞技能
 {
-	ActionComp->StartActionByName(this,"BlackHole");
+	ActionComp->StartActionByName(this,"Ultimate");
 }
 
 void ASCharacter::PrimaryInteract()//交互
