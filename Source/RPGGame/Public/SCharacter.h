@@ -35,7 +35,7 @@ protected:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Components")
 	UCameraComponent* CameraComp;
 	//摄像机吊臂
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Components")
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite,Category="Components")
 	USpringArmComponent* SpringArmComp;
 	//使用接口组件
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Components")
@@ -52,7 +52,7 @@ protected:
 	void MoveRight(float Value);
 	
 	void SprintStart();	// 启动冲刺
-
+	
 	void SprintStop();	// 停止冲刺
 	
 	void PrimaryInteract(); // 交互

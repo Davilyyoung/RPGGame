@@ -48,7 +48,8 @@ ASCharacter::ASCharacter()
 
 	// 受击闪烁
 	TimeToHitParamName = "TimeToHit";
-	
+
+
 }
 
 void ASCharacter::PostInitializeComponents()// Actor 的组件初始化后调用
@@ -58,7 +59,6 @@ void ASCharacter::PostInitializeComponents()// Actor 的组件初始化后调用
 	AttributeComp->OnHealthChanged.AddDynamic(this,&ASCharacter::OnHealthChanged);//绑定这个动态多播
 	
 }
-
 
 FVector ASCharacter::GetPawnViewLocation() const
 {
@@ -95,7 +95,7 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	
 }
 
-void ASCharacter::HealSelf(float Amount/* = 100 */)
+void ASCharacter::HealSelf(float Amount)//  = 100 
 {
 	
 	AttributeComp->ApplyHealthChange(this, Amount);
@@ -130,25 +130,27 @@ void ASCharacter::SprintStart()// 启动冲刺
 
 void ASCharacter::SprintStop()// 停止冲刺
 {
+	
 	ActionComp->StopActionByName(this,"Sprint");
+	
 }
 
-void ASCharacter::PrimaryAttack()//攻击技能
+void ASCharacter::PrimaryAttack()// Attack Skill
 {
 	ActionComp->StartActionByName(this,"PrimaryAttack");
 }
 
-void ASCharacter::Dash()//闪烁技能
+void ASCharacter::Dash()// Dash Skill
 {
 	ActionComp->StartActionByName(this,"Dash");
 }
 
-void ASCharacter::Ultimate()//黑洞技能
+void ASCharacter::Ultimate()// Ultimate Skill
 {
 	ActionComp->StartActionByName(this,"Ultimate");
 }
 
-void ASCharacter::PrimaryInteract()//交互
+void ASCharacter::PrimaryInteract()// Interact
 {
 	if (InteractionComp)
 	{

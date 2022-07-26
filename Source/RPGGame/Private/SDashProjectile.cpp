@@ -33,6 +33,7 @@ void ASDashProjectile::Explode_Implementation()
 
 	UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation());
 
+	
 	EffectComp->DeactivateSystem();
 
 	MoveComp->StopMovementImmediately();

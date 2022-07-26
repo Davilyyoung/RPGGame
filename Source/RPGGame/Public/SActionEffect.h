@@ -31,7 +31,7 @@ protected:
 	FTimerHandle DurationHandle;
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Effect")
-    void ExecutePeriodicEffect(AActor* Instigator);//执行周期性效果
+    void ExecutePeriodicEffect(AActor* Instigator);//数值改变之后调用的函数
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Action")
